@@ -1,0 +1,73 @@
+/* Header do Financeiro */
+.header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+}
+
+.header-actions p { color: #64748b; font-size: 0.9rem; }
+
+/* Grid de Estatísticas */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.stat-icon.blue { background: #eff6ff; color: #2563eb; }
+.stat-icon.red { background: #fef2f2; color: #dc2626; }
+.stat-icon.green { background: #f0fdf4; color: #16a34a; }
+
+.stat-data span { font-size: 0.85rem; color: #64748b; font-weight: 500; }
+.stat-data h2 { font-size: 1.5rem; font-weight: 700; margin-top: 0.2rem; }
+
+/* Tabela de Relatório */
+.table-container h3 { margin-bottom: 1.5rem; font-size: 1.1rem; }
+
+table { width: 100%; border-collapse: collapse; }
+th { 
+    text-align: left; 
+    padding: 1rem; 
+    border-bottom: 2px solid #f1f5f9;
+    color: #64748b; 
+    font-size: 0.8rem; 
+    text-transform: uppercase; 
+}
+
+td { padding: 1.2rem 1rem; border-bottom: 1px solid #f1f5f9; font-size: 0.95rem; }
+tr:hover { background: #f8fafc; }
+
+.btn-print {
+    background: #0f172a;
+    color: white;
+    border: none;
+    padding: 0.7rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}

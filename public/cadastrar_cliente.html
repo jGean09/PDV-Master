@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Novo Cliente - PDV MASTER</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/formularios.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">PDV MASTER</div>
+        <nav>
+            <a href="index.html"><i class="fas fa-cash-register"></i> Caixa</a>
+            <a href="produtos.html"><i class="fas fa-boxes"></i> Estoque</a>
+            <a href="clientes.html" class="active"><i class="fas fa-users"></i> Clientes</a>
+            <a href="relatorio.html"><i class="fas fa-chart-pie"></i> Financeiro</a>
+            <a href="categorias.html"><i class="fas fa-tags"></i> Categorias</a>
+        </nav>
+    </aside>
+
+    <main>
+        <div class="container-small">
+            <header style="margin-bottom: 2rem;">
+                <h1><i class="fas fa-user-plus"></i> Novo Cliente</h1>
+                <p style="color: #64748b;">Cadastre clientes para vendas a prazo ou fidelização.</p>
+            </header>
+
+            <div class="card">
+                <form id="form-cadastrar-cliente">
+                    <div class="form-group">
+                        <label><i class="fas fa-id-card"></i> Nome Completo</label>
+                        <input type="text" id="nome" required placeholder="Ex: João Silva de Oliveira">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fab fa-whatsapp"></i> Telefone / WhatsApp</label>
+                        <input type="text" id="telefone" required placeholder="(84) 99999-0000">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-map-marker-alt"></i> Endereço Completo</label>
+                        <input type="text" id="endereco" required placeholder="Rua, Número, Bairro e Cidade">
+                    </div>
+
+                    <div class="form-actions" style="margin-top: 2rem; display: flex; gap: 1rem;">
+                        <button type="submit" class="btn-primary" style="flex: 2;">
+                            <i class="fas fa-check"></i> Finalizar Cadastro
+                        </button>
+                        <a href="clientes.html" class="btn-secondary" style="flex: 1; text-align: center; text-decoration: none; padding: 0.8rem; border-radius: 8px; background: #e2e8f0; color: #1e293b; font-weight: 600;">
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    <script src="js/scriptCadastrarCliente.js"></script>
+</body>
+</html>

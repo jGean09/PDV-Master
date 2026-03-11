@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Clientes - PDV MASTER</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/tabelas.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">PDV MASTER</div>
+        <nav>
+            <a href="index.html"><i class="fas fa-cash-register"></i> Caixa</a>
+            <a href="produtos.html"><i class="fas fa-boxes"></i> Estoque</a>
+            <a href="clientes.html" class="active"><i class="fas fa-users"></i> Clientes</a>
+            <a href="relatorio.html"><i class="fas fa-chart-pie"></i> Financeiro</a>
+            <a href="categorias.html"><i class="fas fa-tags"></i> Categorias</a>
+        </nav>
+    </aside>
+
+    <main>
+        <header class="header-top">
+            <div>
+                <h1><i class="fas fa-users"></i> Carteira de Clientes</h1>
+                <p style="color: #64748b; font-size: 0.9rem;">Gerencie seus contatos e fidelize seu público.</p>
+            </div>
+            <a href="cadastrar_cliente.html" class="btn-primary">
+                <i class="fas fa-plus"></i> Novo Cliente
+            </a>
+        </header>
+
+        <div class="card table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-user"></i> Nome</th>
+                        <th><i class="fas fa-phone"></i> Contato</th>
+                        <th><i class="fas fa-map-marker-alt"></i> Localização</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-clientes-tbody"></tbody>
+            </table>
+        </div>
+    </main>
+    <script src="js/scriptCliente.js"></script>
+</body>
+</html>

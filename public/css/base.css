@@ -1,0 +1,69 @@
+/* public/css/base.css */
+:root {
+    --primary: #2563eb;
+    --sidebar-bg: #0f172a;
+    --sidebar-width: 260px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: sans-serif;
+    display: flex;
+    background-color: #f1f5f9;
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    background: var(--sidebar-bg);
+    color: white;
+    height: 100vh;
+    position: fixed;
+    padding: 20px;
+}
+
+.sidebar nav a {
+    display: block;
+    color: #cbd5e1;
+    padding: 10px;
+    text-decoration: none;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+.sidebar nav a.active {
+    background: var(--primary);
+    color: white;
+}
+
+main {
+    margin-left: var(--sidebar-width);
+    padding: 40px;
+    flex: 1;
+}
+.grid-2 {
+    display: grid;
+    grid-template-columns: 350px 1fr; /* Form fixo na esquerda, lista ocupa o resto */
+    gap: 2rem;
+    align-items: start;
+}
+
+@media (max-width: 1024px) {
+    .grid-2 { grid-template-columns: 1fr; }
+}
+
+.list-clean {
+    list-style: none;
+    margin-top: 1rem;
+}
+
+.list-clean li {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-main);
+}
+
+.list-clean li:last-child { border-bottom: none; }

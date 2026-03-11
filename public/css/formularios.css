@@ -1,0 +1,113 @@
+/* Container de largura controlada para não espalhar o form na tela toda */
+.container-small {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* Grid Inteligente */
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+/* Espaçamento entre grupos */
+.form-group { 
+    margin-bottom: 1.5rem; 
+}
+
+/* Labels Profissionais: Pequenas, em negrito e com cor sóbria */
+label { 
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0.6rem; 
+    font-weight: 600; 
+    font-size: 0.85rem; 
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Inputs e Selects Refinados */
+input, select {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--text-main);
+    background-color: #fff;
+    transition: all 0.2s ease;
+}
+
+/* Estado de Foco: Realce suave com a cor primária */
+input:focus, select:focus { 
+    border-color: var(--primary); 
+    outline: none; 
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); 
+    background-color: #fff;
+}
+
+/* Placeholder discreto */
+input::placeholder {
+    color: #a0aec0;
+}
+
+/* BOTÃO PRINCIPAL (Salvar) */
+.btn-primary {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+}
+
+.btn-primary:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* BOTÃO SECUNDÁRIO (Voltar/Cancelar) */
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #e2e8f0;
+    color: #475569 !important;
+    text-decoration: none;
+    padding: 0.7rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: 0.2s;
+}
+
+.btn-secondary:hover {
+    background: #cbd5e1;
+    color: #1e293b !important;
+}
+
+/* Responsividade para telas de celular */
+@media (max-width: 600px) {
+    .grid-2 {
+        grid-template-columns: 1fr;
+    }
+}

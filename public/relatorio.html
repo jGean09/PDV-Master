@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Financeiro - PDV MASTER</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/financeiro.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">PDV MASTER</div>
+        <nav>
+            <a href="index.html"><i class="fas fa-cash-register"></i> Caixa</a>
+            <a href="produtos.html"><i class="fas fa-boxes"></i> Estoque</a>
+            <a href="clientes.html"><i class="fas fa-users"></i> Clientes</a>
+            <a href="relatorio.html" class="active"><i class="fas fa-chart-pie"></i> Financeiro</a>
+            <a href="categorias.html"><i class="fas fa-tags"></i> Categorias</a>
+        </nav>
+    </aside>
+
+    <main>
+        <h1>Relatórios Financeiros</h1>
+        
+        <div class="stats-grid">
+            <div class="stat-card blue">
+                <i class="fas fa-money-bill-wave"></i>
+                <div>
+                    <span>Faturamento</span>
+                    <h2 id="faturamento-total">R$ 0,00</h2>
+                </div>
+            </div>
+            </div>
+
+        <div class="card">
+            <table id="tabela-relatorio">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Data</th>
+                        <th>Produtos</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="corpo-relatorio"></tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="js/scriptRelatorio.js"></script>
+</body>
+</html>

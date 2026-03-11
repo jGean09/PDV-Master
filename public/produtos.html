@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Estoque - PDV MASTER</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/tabelas.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">PDV MASTER</div>
+        <nav>
+            <a href="index.html"><i class="fas fa-cash-register"></i> Caixa</a>
+            <a href="produtos.html" class="active"><i class="fas fa-boxes"></i> Estoque</a>
+            <a href="clientes.html"><i class="fas fa-users"></i> Clientes</a>
+            <a href="relatorio.html"><i class="fas fa-chart-pie"></i> Financeiro</a>
+            <a href="categorias.html"><i class="fas fa-tags"></i> Categorias</a>
+        </nav>
+    </aside>
+
+    <main>
+        <header class="header-top">
+            <div>
+                <h1><i class="fas fa-boxes"></i> Gestão de Estoque</h1>
+                <p style="color: #64748b; font-size: 0.9rem;">Controle de mercadorias e disponibilidade.</p>
+            </div>
+            <a href="cadastrar_produtos.html" class="btn-primary">
+                <i class="fas fa-plus"></i> Novo Produto
+            </a>
+        </header>
+        
+        <div class="card table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Venda</th>
+                        <th>Custo</th>
+                        <th>Estoque</th>
+                        <th>Fornecedor</th>
+                        <th>Categoria</th>
+                        <th style="text-align: center;">Ações</thstyle="text-align:></th>
+                    </tr>
+                </thead>
+                <tbody id="lista-produtos-tbody"></tbody>
+            </table>
+        </div>
+    </main>
+    <script src="js/scriptProdutos.js"></script>
+</body>
+</html>

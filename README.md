@@ -1,82 +1,61 @@
-🚀 PDV MASTER - Sistema de Gestão e Frente de Caixa
-O PDV Master é um ecossistema completo para gestão de micro e pequenas empresas. Desenvolvido com uma arquitetura MVC (Model-View-Controller) no backend e uma interface moderna e responsiva no frontend, o sistema foca em agilidade no checkout e precisão no controle de estoque.
+# 🚀 PDV MASTER - Sistema de Gestão e Frente de Caixa
 
-🛠️ Tecnologias Utilizadas
-O projeto utiliza uma stack robusta para garantir performance e escalabilidade:
+O **PDV Master** é um ecossistema completo para gestão de micro e pequenas empresas. Desenvolvido com uma arquitetura **MVC (Model-View-Controller)** no backend e uma interface **moderna e responsiva** no frontend.
 
-Frontend: HTML5, CSS3 (Arquitetura modular), JavaScript Vanilla (ES6+).
+---
 
-Backend: Node.js com Express.
+## 🛠️ Tecnologias Utilizadas
 
-Banco de Dados: SQLite/MySQL (Integração via Query Builder).
+* **Frontend:** HTML5, CSS3 (Arquitetura modular), JavaScript ES6+.
+* **Backend:** Node.js com Express.
+* **Banco de Dados:** SQLite/MySQL.
+* **Icons:** Font Awesome 6.0.
+* **Fonts:** Inter (Google Fonts).
 
-Icons: Font Awesome 6.0.
+---
 
-Fonts: Inter (Google Fonts).
+## 📋 Funcionalidades de Alto Nível
 
-📋 Funcionalidades de Alto Nível
-1. Frente de Caixa (PDV)
-Busca instantânea de produtos.
+### 1. Frente de Caixa (PDV)
+* Busca instantânea de produtos e interface baseada em **Cards Visuais**.
+* Atalho de teclado (**F8**) para finalização rápida.
+* Associação de vendas a clientes cadastrados.
 
-Interface baseada em Cards Visuais para identificação rápida.
+### 2. Gestão de Estoque e Clientes
+* CRUD completo de produtos e clientes.
+* Controle de preços e margens de lucro.
+* Alerta visual para estoque baixo.
 
-Atalho de teclado (F8) para finalização de venda.
+---
 
-Associação de vendas a clientes cadastrados.
+## 📂 Estrutura do Projeto
 
-2. Gestão de Estoque
-CRUD completo de produtos (Cadastrar, Listar, Editar e Deletar).
-
-Controle de preço de custo vs. preço de venda (Cálculo de margem).
-
-Alerta visual para itens com baixo estoque.
-
-3. Gestão de Clientes
-Carteira de clientes organizada por nome e localização.
-
-Histórico para futuras implementações de programas de fidelidade.
-
-4. Inteligência Financeira
-Dashboard com cards de Faturamento Total, Custo e Lucro Líquido.
-
-Histórico detalhado de transações.
-
-📂 Estrutura do Projeto
-A organização de pastas segue o padrão de sistemas de larga escala:
-
+```text
 pdv-backend/
-├── public/              # Todo o Frontend do sistema
-│   ├── css/             # Estilos modais (base, vendas, tabelas, forms)
-│   ├── js/              # Lógica de interação por página
-│   └── *.html           # Estruturas das telas
-├── routes/              # Definição das rotas da API
-├── controllers/         # Regras de negócio do sistema
-├── models/              # Comunicação com o banco de dados
-└── server.js            # Ponto de entrada da aplicação
+├── public/              # Todo o Frontend
+│   ├── css/             # Estilos modais
+│   ├── js/              # Lógica de interação
+│   └── *.html           # Telas do sistema
+├── routes/              # Definição de Rotas
+└── server.js            # Ponto de entrada
 
-🚀 Como Executar o Projeto
-Clone o repositório:
+## 🎯 Roadmap de Evolução
 
-Bash
-git clone https://github.com/jGean09/PDV-Master.git
-Instale as dependências:
+[x] Interface Responsiva e Sidebar Fixa.
 
-Bash
-npm install
-Inicie o servidor:
+[ ] Implementação de Exclusão com Confirmação.
 
-Bash
-npm start
-Acesse no navegador:
-http://localhost:3000
+[ ] Gráficos de desempenho financeiro.
 
-🎯 Próximos Passos (Roadmap)
-[ ] Implementação de Exclusão com Confirmação (CRUD Completo).
+Desenvolvido por José Gean
 
-[ ] Máscaras de entrada para Telefone e CPF.
-
-[ ] Gráficos de desempenho semanal no Financeiro.
-
-[ ] Impressão de cupom não fiscal.
-
-Desenvolvido por José Gean "Transformando código em soluções de negócio."
+### 3. Como aplicar
+1. Abra o arquivo no VS Code.
+2. Apague tudo o que está lá.
+3. Cole esse código de cima.
+4. Salve (`Ctrl + S`).
+5. No terminal, envie a atualização:
+   ```bash
+   git add README.md
+   git commit -m "docs: corrigindo formatação do readme"
+   git push origin main

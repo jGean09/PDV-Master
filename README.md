@@ -43,24 +43,25 @@ pdv-backend/
 └── server.js            # Inicialização do Servidor Express
 
 ## 🚀 Como Executar
+Clone o repositório:
 
-1. **Clone o repositório:**
-   ```bash
-   git clone [https://github.com/jGean09/PDV-Master.git](https://github.com/jGean09/PDV-Master.git)```
+Bash
+git clone https://github.com/jGean09/PDV-Master.git
+Instale as dependências:
 
-2. **Instale as dependências:**
-   ```bash
-   npm install```
-3. ** Sincronize o banco de dados: **
-   ```bash
-   npx prisma migrate dev```
-4. ** Inicie o sistema: **
-   ```bash
-   npm run dev```
-  ``` (ou nodemon server.js)```
+Bash
+npm install
+Sincronize o banco de dados:
 
-## 🎯 Roadmap de Evolução
+Bash
+npx prisma migrate dev
+Inicie o sistema:
 
+Bash
+npm run dev
+(ou nodemon server.js)
+
+🎯 Roadmap de Evolução
 [x] Migração para Prisma ORM (Arquitetura Profissional).
 
 [x] Interface Responsiva e Sidebar Fixa.
@@ -68,5 +69,5 @@ pdv-backend/
 [ ] Implementação de Exclusão/Edição com Confirmação em todas as telas.
 
 [ ] Dashboards gráficos de desempenho mensal.
----
+
 Desenvolvido por José Gean Transformando lógica em ferramentas de alto impacto.

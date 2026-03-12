@@ -41,7 +41,7 @@ pdv-backend/
 │   ├── routes/          # Definição das rotas da API
 │   └── database/        # Configurações de conexão
 └── server.js            # Inicialização do Servidor Express
-
+```
 ## 🚀 Como Executar
 Clone o repositório:
 

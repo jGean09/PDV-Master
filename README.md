@@ -46,18 +46,18 @@ pdv-backend/
 
 1. **Clone o repositório:**
    ```bash
-   git clone [https://github.com/jGean09/PDV-Master.git](https://github.com/jGean09/PDV-Master.git)
+   git clone [https://github.com/jGean09/PDV-Master.git](https://github.com/jGean09/PDV-Master.git)```
 
 2. **Instale as dependências:**
    ```bash
-   npm install
+   npm install```
 3. ** Sincronize o banco de dados: **
    ```bash
-   npx prisma migrate dev
+   npx prisma migrate dev```
 4. ** Inicie o sistema: **
    ```bash
-   npm run dev
-   (ou nodemon server.js)
+   npm run dev```
+  ``` (ou nodemon server.js)```
 
 ## 🎯 Roadmap de Evolução
 
@@ -70,25 +70,3 @@ pdv-backend/
 [ ] Dashboards gráficos de desempenho mensal.
 ---
 Desenvolvido por José Gean Transformando lógica em ferramentas de alto impacto.
-
-### O que eu mudei para ficar profissional:
-* **Blocos de Código:** Coloquei os comandos dentro de blocos específicos para facilitar a leitura e permitir que o usuário copie com um clique.
-* **Listas de Tarefas:** Usei a sintaxe `- [x]` para que o GitHub exiba as caixinhas de seleção marcadas (o que dá um ar de projeto ativo).
-* **Links:** Transformei seu nome em um link clicável para o seu perfil.
-
-**Missão cumprida por hoje?** Agora que o README e o código estão no Git, você tem um portfólio real. **Amanhã quer começar por onde? Pela exclusão com confirmação ou pelos gráficos do financeiro?**
----
-
-### O toque final:
-Como você já deu o `push` do código, agora é só atualizar o README:
-
-1.  Abra o `README.md` no VS Code.
-2.  Substitua tudo pelo código acima.
-3.  Execute:
-    ```bash
-    git add README.md
-    git commit -m "docs: update readme with prisma architecture and new structure"
-    git push origin main
-    ```
-
-**Gostaria que eu te ajudasse a criar uma seção de "Printscreens" agora?** Se você me mandar as fotos das telas de Categorias e Estoque, eu posso te ensinar a criar uma pasta no Git só para imagens e fazer o README exibir seu sistema de forma visual. Seria o próximo passo para deixar o repositório 100% profissional.

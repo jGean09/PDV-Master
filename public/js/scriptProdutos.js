@@ -64,18 +64,20 @@ async function deletarProduto(id, nome) {
             produtos.forEach(produto => {
                 const tr = document.createElement('tr');
 
+                // O Prisma traz a categoria dentro de produto.category
+                const nomeCategoria = produto.category ? produto.category.name : 'Sem categoria';
+                
+                // Use 'cost' em vez de 'custo'
                 const precoVenda = produto.price != null ? `R$ ${produto.price.toFixed(2)}` : 'N/A';
-                const precoCusto = produto.custo != null ? `R$ ${produto.custo.toFixed(2)}` : 'N/A';
-                const fornecedor = produto.fornecedor || 'Não informado';
-                const categoria = produto.category_name || 'Sem categoria';
+                const precoCusto = produto.cost != null ? `R$ ${produto.cost.toFixed(2)}` : 'N/A';
 
                 tr.innerHTML = `
                     <td>${produto.name}</td>
                     <td>${precoVenda}</td>
                     <td>${precoCusto}</td>
                     <td>${produto.quantity}</td>
-                    <td>${fornecedor}</td>
-                    <td>${categoria}</td>
+                    <td>${produto.fornecedor || 'Não informado'}</td>
+                    <td><span class="badge">${nomeCategoria}</span></td>
                 `;
                 tbody.appendChild(tr);
             });

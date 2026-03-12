@@ -1,8 +1,11 @@
-const router = require('express').Router();
+const express = require('express');
+const router = express.Router();
 const categoryController = require('../controllers/categoryController');
 
-// O '/' aqui corresponde ao que definirmos no server.js (que será /categories)
+// Verifique se os nomes depois de "categoryController." batem com o que exportamos
 router.get('/', categoryController.getAllCategories);
 router.post('/', categoryController.createCategory);
+router.put('/:id', categoryController.updateCategory);
+router.delete('/:id', categoryController.deleteCategory);
 
 module.exports = router;

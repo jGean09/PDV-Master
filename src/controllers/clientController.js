@@ -1,13 +1,21 @@
-const { db } = require('../database/db');
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
 
-exports.getAllClients = (req, res) => {
-    res.json(db.prepare('SELECT * FROM customers ORDER BY name').all());
-};
-
-exports.createClient = (req, res) => {
+const createClient = async (req, res) => {
     const { name, phone, address } = req.body;
     try {
-        const info = db.prepare('INSERT INTO customers (name, phone, address) VALUES (?, ?, ?)').run(name, phone, address);
-        res.status(201).json({ ok: true, id: info.lastInsertRowid });
-    } catch (err) { res.status(500).json({ ok: false, error: err.message }); }
+        const client = await prisma.client.create({
+            data: { name, phone, address }
+        });
+        res.status(201).json(client);
+    } catch (error) {
+        res.status(400).json({ error: "Erro ao cadastrar cliente" });
+    }
 };
+
+const getAllClients = async (req, res) => {
+    const clients = await prisma.client.findMany();
+    res.json(clients);
+};
+
+module.exports = { createClient, getAllClients };

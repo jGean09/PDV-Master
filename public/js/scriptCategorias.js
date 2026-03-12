@@ -2,71 +2,90 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('form-cadastrar-categoria');
     const listaCategorias = document.getElementById('lista-categorias');
 
-    // 1. CARREGAR CATEGORIAS
+    // 1. CARREGAR CATEGORIAS (READ)
     async function carregarCategorias() {
         try {
-            // Caminho relativo: padrão profissional
             const res = await fetch('/categories');
             if (!res.ok) throw new Error('Erro ao buscar dados');
             
             const categorias = await res.json();
             listaCategorias.innerHTML = '';
 
-            if (categorias.length === 0) {
-                listaCategorias.innerHTML = '<li style="color: var(--text-muted); padding: 10px;">Nenhuma categoria encontrada.</li>';
-                return;
-            }
-
             categorias.forEach(cat => {
                 const li = document.createElement('li');
-                // Adicionando ícone de tag para cada item da lista
                 li.innerHTML = `
-                    <span><i class="fas fa-tag" style="color: var(--primary); margin-right: 10px;"></i> ${cat.name}</span>
-                    <small style="color: var(--text-muted)">ID: ${cat.id}</small>
+                    <span><i class="fas fa-tag" style="color: var(--primary);"></i> ${cat.name}</span>
+                    <div class="actions">
+                        <button onclick="prepararEdicao(${cat.id}, '${cat.name}')" class="btn-edit" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button onclick="deletarCategoria(${cat.id})" class="btn-delete" title="Excluir">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
                 `;
                 listaCategorias.appendChild(li);
             });
         } catch (error) {
-            console.error('❌ Erro:', error);
             listaCategorias.innerHTML = '<li style="color: var(--danger);">Erro ao carregar categorias</li>';
         }
     }
 
-    // 2. CADASTRAR NOVA CATEGORIA
+    // 2. CADASTRAR OU ATUALIZAR (CREATE / UPDATE)
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
         const inputNome = document.getElementById('nome-categoria');
+        const categoriaId = form.dataset.editingId; // Verifica se estamos editando
         const nome = inputNome.value.trim();
 
-        if (!nome) return alert('Por favor, digite o nome da categoria.');
+        if (!nome) return;
+
+        const url = categoriaId ? `/categories/${categoriaId}` : '/categories';
+        const method = categoriaId ? 'PUT' : 'POST';
 
         try {
-            const res = await fetch('/categories', {
-                method: 'POST',
+            const res = await fetch(url, {
+                method: method,
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name: nome })
             });
 
             const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Erro na operação');
 
-            if (!res.ok) {
-                // Se o backend disser que já existe (409) ou outro erro
-                throw new Error(data.error || 'Erro ao processar cadastro');
-            }
-
-            // Sucesso: limpa o campo e recarrega a lista
+            // Reset do form
             inputNome.value = '';
-            carregarCategorias();
+            delete form.dataset.editingId;
+            form.querySelector('button').textContent = 'Salvar Categoria';
             
-            // Feedback visual sutil (Opcional)
-            console.log('✅ Categoria cadastrada:', data.id);
-
+            carregarCategorias();
         } catch (error) {
-            console.error('❌ Erro no cadastro:', error.message);
-            alert('Erro: ' + error.message);
+            alert(error.message);
         }
     });
 
-    // Inicialização
+    // Torna as funções globais para o onclick funcionar
+    window.deletarCategoria = async (id) => {
+        if (!confirm("Deseja realmente excluir esta categoria?")) return;
+
+        try {
+            const res = await fetch(`/categories/${id}`, { method: 'DELETE' });
+            const data = await res.json();
+
+            if (!res.ok) throw new Error(data.error);
+            carregarCategorias();
+        } catch (error) {
+            alert(error.message); // Aqui o Prisma vai avisar se tiver produtos vinculados!
+        }
+    };
+
+    window.prepararEdicao = (id, nome) => {
+        const inputNome = document.getElementById('nome-categoria');
+        inputNome.value = nome;
+        form.dataset.editingId = id; // Guarda o ID no form
+        form.querySelector('button').textContent = 'Atualizar Categoria';
+        inputNome.focus();
+    };
+
     carregarCategorias();
 });

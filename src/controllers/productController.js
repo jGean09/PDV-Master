@@ -1,28 +1,62 @@
-const { db } = require('../database/db');
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
 
-// Controller lida com a lógica
-const getAllProducts = (req, res) => {
+/**
+ * Busca todos os produtos incluindo os dados da categoria vinculada
+ */
+const getAllProducts = async (req, res) => {
     try {
-        const rows = db.prepare(`
-            SELECT p.*, c.name AS category_name
-            FROM products p
-            LEFT JOIN categories c ON p.category_id = c.id
-        `).all();
-        res.json(rows);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+        const products = await prisma.product.findMany({
+            include: { 
+                category: true // Isso traz o objeto completo da categoria (id e name)
+            }
+        });
+        res.json(products);
+    } catch (error) {
+        console.error("❌ Erro ao buscar produtos:", error);
+        res.status(500).json({ error: "Erro interno ao buscar produtos" });
     }
 };
 
-const createProduct = (req, res) => {
-    const { name, price, custo, quantity, fornecedor, category_id } = req.body;
+/**
+ * Cria um novo produto com validação de tipos e conexão de categoria
+ */
+const createProduct = async (req, res) => {
+    const { name, price, cost, quantity, categoryId } = req.body;
+
     try {
-        const stmt = db.prepare('INSERT INTO products (name, price, custo, fornecedor, quantity, category_id) VALUES (?, ?, ?, ?, ?, ?)');
-        const info = stmt.run(name, price, custo, fornecedor || null, quantity, category_id || null);
-        res.status(201).json({ ok: true, id: info.lastInsertRowid });
-    } catch (err) {
-        res.status(500).json({ ok: false, error: err.message });
+        // Validação básica: se o categoryId for nulo ou indefinido, o Prisma vai falhar no connect
+        if (!categoryId) {
+            return res.status(400).json({ error: "ID da categoria é obrigatório." });
+        }
+
+        const product = await prisma.product.create({
+            data: {
+                name: name,
+                price: parseFloat(price),
+                cost: parseFloat(cost),
+                quantity: parseInt(quantity),
+                // O método connect vincula o produto à categoria existente pelo ID
+                category: { 
+                    connect: { id: parseInt(categoryId) } 
+                }
+            }
+        });
+
+        res.status(201).json(product);
+
+    } catch (error) {
+        // Exibe o erro real no terminal do VS Code para facilitar o conserto
+        console.error("❌ ERRO TÉCNICO NO PRISMA:", error.message);
+
+        res.status(400).json({ 
+            error: "Erro ao criar produto. Verifique se a categoria selecionada ainda existe no sistema.",
+            details: error.message 
+        });
     }
 };
 
-module.exports = { getAllProducts, createProduct };
+module.exports = { 
+    getAllProducts, 
+    createProduct 
+};

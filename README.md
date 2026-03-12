@@ -45,20 +45,20 @@ pdv-backend/
 ## 🚀 Como Executar
 Clone o repositório:
 
-Bash
-git clone https://github.com/jGean09/PDV-Master.git
+```Bash
+git clone https://github.com/jGean09/PDV-Master.git```
 Instale as dependências:
 
-Bash
-npm install
+```Bash 
+npm install ```
 Sincronize o banco de dados:
 
-Bash
-npx prisma migrate dev
+```Bash
+npx prisma migrate dev```
 Inicie o sistema:
 
-Bash
-npm run dev
+```Bash
+npm run dev```
 (ou nodemon server.js)
 
 🎯 Roadmap de Evolução

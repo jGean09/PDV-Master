@@ -45,12 +45,12 @@ pdv-backend/
 ## 🚀 Como Executar
 Clone o repositório:
 
-```Bash
-git clone https://github.com/jGean09/PDV-Master.git```
+Bash```
+git clone https://github.com/jGean09/PDV-Master.git ```
 Instale as dependências:
 
-```Bash 
-npm install ```
+Bash 
+```npm install ```
 Sincronize o banco de dados:
 
 ```Bash

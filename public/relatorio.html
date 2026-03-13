@@ -3,16 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Financeiro - PDV MASTER</title>
+
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/financeiro.css">
     <link rel="stylesheet" href="css/tabelas.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
 <aside class="sidebar">
     <div class="logo">PDV MASTER</div>
+
     <nav>
         <a href="index.html"><i class="fas fa-cash-register"></i> Caixa</a>
         <a href="produtos.html"><i class="fas fa-boxes"></i> Estoque</a>
@@ -22,74 +28,151 @@
     </nav>
 </aside>
 
+
 <main>
-    <header class="header-top">
-        <div>
-            <h1>Relatórios Financeiros</h1>
-            <p>Análise de performance, faturamento e lucro real.</p>
+
+<!-- ================================
+HEADER COM FILTROS
+================================ -->
+
+<header class="header-top">
+
+    <div>
+        <h1>Relatórios Financeiros</h1>
+        <p>Análise de performance, faturamento e lucro real.</p>
+    </div>
+
+    <div class="header-actions">
+
+        <div class="filter-group">
+
+            <div class="input-field">
+                <label>Início</label>
+                <input type="date" id="data-inicio">
+            </div>
+
+            <div class="input-field">
+                <label>Fim</label>
+                <input type="date" id="data-fim">
+            </div>
+
+            <button onclick="fetchVendas()" class="btn-filter">
+                <i class="fas fa-sync-alt"></i> Filtrar
+            </button>
+
         </div>
+
         <button onclick="window.print()" class="btn-primary">
-            <i class="fas fa-print"></i> Imprimir Relatório
+            <i class="fas fa-print"></i> PDF
         </button>
-    </header>
 
-    <div class="stats-grid">
-        <div class="stat-card blue">
-            <div class="stat-icon"><i class="fas fa-wallet"></i></div>
-            <div class="stat-data">
-                <span>Faturamento Bruto</span>
-                <h2 id="faturamento-bruto">R$ 0,00</h2>
-                <small>Entrada total em caixa</small>
-            </div>
-        </div>
-
-        <div class="stat-card red">
-            <div class="stat-icon"><i class="fas fa-hand-holding-usd"></i></div>
-            <div class="stat-data">
-                <span>Custo Total (CMV)</span>
-                <h2 id="custo-total">R$ 0,00</h2>
-                <small>Custo das mercadorias</small>
-            </div>
-        </div>
-
-        <div class="stat-card green">
-            <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
-            <div class="stat-data">
-                <span>Lucro Líquido</span>
-                <h2 id="lucro-liquido">R$ 0,00</h2>
-                <small id="margem-lucro">Margem: 0%</small>
-            </div>
-        </div>
     </div>
 
-    <div class="grid-charts">
-        <div class="chart-container card">
-            <h3>Tendência de Vendas (7 dias)</h3>
-            <canvas id="chartVendasDiarias"></canvas>
+</header>
+
+
+<!-- ================================
+CARDS FINANCEIROS
+================================ -->
+
+<div class="stats-grid">
+
+    <div class="stat-card blue">
+
+        <div class="stat-icon">
+            <i class="fas fa-wallet"></i>
         </div>
-        <div class="chart-container card">
-            <h3>Distribuição por Categoria</h3>
-            <canvas id="chartCategorias"></canvas>
+
+        <div class="stat-data">
+            <span>Faturamento Bruto</span>
+            <h2 id="faturamento-bruto">R$ 0,00</h2>
+            <small>Entrada total em caixa</small>
         </div>
+
     </div>
 
-    <div class="card table-container" style="margin-top: 2rem;">
-        <h3>Histórico Recente de Vendas</h3>
-        <table id="tabela-relatorio">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Cliente</th>
-                    <th>Data</th>
-                    <th>Produtos</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody id="corpo-relatorio"></tbody>
-        </table>
+
+    <div class="stat-card red">
+
+        <div class="stat-icon">
+            <i class="fas fa-hand-holding-usd"></i>
+        </div>
+
+        <div class="stat-data">
+            <span>Custo Total (CMV)</span>
+            <h2 id="custo-total">R$ 0,00</h2>
+            <small>Custo das mercadorias</small>
+        </div>
+
     </div>
+
+
+    <div class="stat-card green">
+
+        <div class="stat-icon">
+            <i class="fas fa-chart-line"></i>
+        </div>
+
+        <div class="stat-data">
+            <span>Lucro Líquido</span>
+            <h2 id="lucro-liquido">R$ 0,00</h2>
+            <small id="margem-lucro">Margem: 0%</small>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================================
+GRÁFICOS
+================================ -->
+
+<div class="grid-charts">
+
+    <div class="chart-container card">
+        <h3>Tendência de Vendas (7 dias)</h3>
+        <canvas id="chartVendasDiarias"></canvas>
+    </div>
+
+    <div class="chart-container card">
+        <h3>Distribuição por Categoria</h3>
+        <canvas id="chartCategorias"></canvas>
+    </div>
+
+</div>
+
+
+<!-- ================================
+TABELA DE VENDAS
+================================ -->
+
+<div class="card table-container" style="margin-top:2rem;">
+
+    <h3>Histórico Recente de Vendas</h3>
+
+    <table id="tabela-relatorio">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Data</th>
+                <th>Produtos</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+
+        <tbody id="corpo-relatorio"></tbody>
+
+    </table>
+
+</div>
+
 </main>
 
+
 <script src="js/scriptRelatorio.js"></script>
+
 </body>
 </html>

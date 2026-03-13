@@ -16,7 +16,10 @@
 
 <body>
 
+<!-- SIDEBAR -->
+
 <aside class="sidebar">
+
     <div class="logo">PDV MASTER</div>
 
     <nav>
@@ -26,20 +29,19 @@
         <a href="relatorio.html" class="active"><i class="fas fa-chart-pie"></i> Financeiro</a>
         <a href="categorias.html"><i class="fas fa-tags"></i> Categorias</a>
     </nav>
+
 </aside>
 
 
 <main>
 
-<!-- ================================
-HEADER COM FILTROS
-================================ -->
+<!-- HEADER -->
 
 <header class="header-top">
 
     <div>
         <h1>Relatórios Financeiros</h1>
-        <p>Análise de performance, faturamento e lucro real.</p>
+        <p>Inteligência de mercado e performance de estoque.</p>
     </div>
 
     <div class="header-actions">
@@ -56,9 +58,24 @@ HEADER COM FILTROS
                 <input type="date" id="data-fim">
             </div>
 
-            <button onclick="fetchVendas()" class="btn-filter">
-                <i class="fas fa-sync-alt"></i> Filtrar
-            </button>
+            <div class="input-field">
+                <label>Categoria</label>
+                <select id="filtro-categoria">
+                    <option value="">Todas</option>
+                </select>
+            </div>
+
+            <div class="filter-buttons">
+
+                <button onclick="fetchVendas()" class="btn-filter primary">
+                    <i class="fas fa-search"></i> Filtrar
+                </button>
+
+                <button onclick="limparFiltros()" class="btn-filter">
+                    <i class="fas fa-times"></i> Limpar
+                </button>
+
+            </div>
 
         </div>
 
@@ -71,9 +88,7 @@ HEADER COM FILTROS
 </header>
 
 
-<!-- ================================
-CARDS FINANCEIROS
-================================ -->
+<!-- CARDS FINANCEIROS -->
 
 <div class="stats-grid">
 
@@ -86,7 +101,6 @@ CARDS FINANCEIROS
         <div class="stat-data">
             <span>Faturamento Bruto</span>
             <h2 id="faturamento-bruto">R$ 0,00</h2>
-            <small>Entrada total em caixa</small>
         </div>
 
     </div>
@@ -99,9 +113,8 @@ CARDS FINANCEIROS
         </div>
 
         <div class="stat-data">
-            <span>Custo Total (CMV)</span>
+            <span>Custo (CMV)</span>
             <h2 id="custo-total">R$ 0,00</h2>
-            <small>Custo das mercadorias</small>
         </div>
 
     </div>
@@ -116,7 +129,7 @@ CARDS FINANCEIROS
         <div class="stat-data">
             <span>Lucro Líquido</span>
             <h2 id="lucro-liquido">R$ 0,00</h2>
-            <small id="margem-lucro">Margem: 0%</small>
+            <small id="margem-lucro">0%</small>
         </div>
 
     </div>
@@ -124,28 +137,44 @@ CARDS FINANCEIROS
 </div>
 
 
-<!-- ================================
-GRÁFICOS
-================================ -->
+<!-- DASHBOARD PRINCIPAL -->
 
-<div class="grid-charts">
+<div class="grid-dashboard">
 
-    <div class="chart-container card">
-        <h3>Tendência de Vendas (7 dias)</h3>
+    <div class="chart-main card">
+        <h3>Tendência de Vendas</h3>
         <canvas id="chartVendasDiarias"></canvas>
     </div>
 
-    <div class="chart-container card">
-        <h3>Distribuição por Categoria</h3>
-        <canvas id="chartCategorias"></canvas>
+    <div class="ranking-card card">
+        <h3>
+            <i class="fas fa-trophy" style="color:#fbbf24;"></i>
+            Top 5 Produtos
+        </h3>
+
+        <ul id="lista-top-produtos" class="ranking-list"></ul>
+
     </div>
 
 </div>
 
 
-<!-- ================================
-TABELA DE VENDAS
-================================ -->
+<!-- GRÁFICO CATEGORIAS -->
+
+<div class="grid-charts" style="margin-top:1.5rem;">
+
+    <div class="card">
+
+        <h3>Vendas por Categoria</h3>
+
+        <canvas id="chartCategorias"></canvas>
+
+    </div>
+
+</div>
+
+
+<!-- TABELA DE VENDAS -->
 
 <div class="card table-container" style="margin-top:2rem;">
 
@@ -154,6 +183,7 @@ TABELA DE VENDAS
     <table id="tabela-relatorio">
 
         <thead>
+
             <tr>
                 <th>ID</th>
                 <th>Cliente</th>
@@ -161,6 +191,7 @@ TABELA DE VENDAS
                 <th>Produtos</th>
                 <th>Total</th>
             </tr>
+
         </thead>
 
         <tbody id="corpo-relatorio"></tbody>

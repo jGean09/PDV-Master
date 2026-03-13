@@ -30,15 +30,28 @@ async function carregarProdutos() {
             const precoVenda = p.price != null ? `R$ ${p.price.toFixed(2)}` : 'N/A';
             const precoCusto = p.cost != null ? `R$ ${p.cost.toFixed(2)}` : 'N/A';
 
+            // ALERTA DE ESTOQUE BAIXO
+            const estoqueBaixo = p.quantity < 5;
+            const styleEstoque = estoqueBaixo ? 'color: #ef4444; font-weight: bold;' : '';
+
             tr.innerHTML = `
                 <td style="font-weight:600;">
                     ${p.name} ${!p.active ? '<br><small style="color:red;">(INATIVO)</small>' : ''}
                 </td>
+
                 <td>${precoVenda}</td>
+
                 <td>${precoCusto}</td>
-                <td>${p.quantity}</td>
+
+                <td style="${styleEstoque}">
+                    ${p.quantity}
+                    ${estoqueBaixo ? '<i class="fas fa-exclamation-triangle" title="Estoque Baixo!" style="margin-left:6px;"></i>' : ''}
+                </td>
+
                 <td>${p.fornecedor || '---'}</td>
+
                 <td><span class="badge">${nomeCategoria}</span></td>
+
                 <td style="text-align: center; display: flex; gap: 8px; justify-content: center; align-items: center;">
                     
                     <button onclick="prepararEdicao(${p.id})"

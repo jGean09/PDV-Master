@@ -1,3 +1,7 @@
+/* ==========================
+CARDS FINANCEIROS
+========================== */
+
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -48,6 +52,69 @@
     font-size: 0.75rem;
 }
 
+
+/* ==========================
+DASHBOARD PRINCIPAL
+========================== */
+
+.grid-dashboard {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+
+/* ==========================
+RANKING PRODUTOS
+========================== */
+
+.ranking-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+.ranking-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.ranking-item:last-child {
+    border: 0;
+}
+
+.product-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.rank-number {
+    background: #f1f5f9;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.qty-badge {
+    background: #e0f2fe;
+    color: #0369a1;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+
 /* ==========================
 GRÁFICOS
 ========================== */
@@ -75,6 +142,7 @@ canvas {
     width: 100% !important;
 }
 
+
 /* ==========================
 UTILITÁRIOS DA TABELA
 ========================== */
@@ -97,6 +165,7 @@ UTILITÁRIOS DA TABELA
     color: #64748b;
     font-size: 0.85rem;
 }
+
 
 /* ==========================
 BARRA DE FILTROS
@@ -131,13 +200,24 @@ BARRA DE FILTROS
     margin-bottom: 2px;
 }
 
-.input-field input {
+.input-field input,
+.input-field select {
     border: 1px solid #e2e8f0;
     border-radius: 6px;
     padding: 5px;
     color: #1e293b;
     font-family: inherit;
     outline: none;
+}
+
+
+/* ==========================
+BOTÕES DE FILTRO
+========================== */
+
+.filter-buttons {
+    display: flex;
+    gap: 0.5rem;
 }
 
 .btn-filter {
@@ -154,4 +234,9 @@ BARRA DE FILTROS
 .btn-filter:hover {
     background: #e2e8f0;
     color: #0f172a;
+}
+
+.btn-filter.primary {
+    background: #0f172a;
+    color: white;
 }

@@ -1,31 +1,81 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Função para renderizar a tabela (atualize a sua)
-function atualizarTabela(produtos) {
-    const tbody = document.getElementById('lista-produtos-tbody');
-    tbody.innerHTML = '';
+    carregarProdutos();
+});
 
-    produtos.forEach(p => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td style="font-weight:600;">${p.name}</td>
-            <td>R$ ${Number(p.price).toFixed(2)}</td>
-            <td>R$ ${Number(p.cost || 0).toFixed(2)}</td>
-            <td>${p.quantity}</td>
-            <td><span class="badge">${p.category_name || 'Geral'}</span></td>
-            <td style="text-align: center;">
-                <button onclick="deletarProduto(${p.id}, '${p.name}')" class="btn-delete">
-                    <i class="fas fa-trash-alt"></i>
-                </button>
-            </td>
-        `;
-        tbody.appendChild(tr);
-    });
+// 1. CARREGAR PRODUTOS DO BANCO
+async function carregarProdutos() {
+    const tbody = document.getElementById('lista-produtos-tbody');
+
+    try {
+        const response = await fetch('/products?includeInactive=true', { cache: 'no-store' });
+        if (!response.ok) throw new Error('Erro ao carregar produtos');
+
+        const produtos = await response.json();
+        tbody.innerHTML = '';
+
+        if (produtos.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center">Nenhum produto cadastrado.</td></tr>';
+            return;
+        }
+
+        produtos.forEach(p => {
+            const tr = document.createElement('tr');
+
+            if (!p.active) {
+                tr.style.opacity = "0.6";
+                tr.style.backgroundColor = "#f8fafc";
+            }
+
+            const nomeCategoria = p.category ? p.category.name : 'Sem categoria';
+            const precoVenda = p.price != null ? `R$ ${p.price.toFixed(2)}` : 'N/A';
+            const precoCusto = p.cost != null ? `R$ ${p.cost.toFixed(2)}` : 'N/A';
+
+            tr.innerHTML = `
+                <td style="font-weight:600;">
+                    ${p.name} ${!p.active ? '<br><small style="color:red;">(INATIVO)</small>' : ''}
+                </td>
+                <td>${precoVenda}</td>
+                <td>${precoCusto}</td>
+                <td>${p.quantity}</td>
+                <td>${p.fornecedor || '---'}</td>
+                <td><span class="badge">${nomeCategoria}</span></td>
+                <td style="text-align: center; display: flex; gap: 8px; justify-content: center; align-items: center;">
+                    
+                    <button onclick="prepararEdicao(${p.id})"
+                        style="padding: 6px 10px; background:#f59e0b; border:none; border-radius:4px; color:white; cursor:pointer;"
+                        title="Editar">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    
+                    ${p.active ? `
+                        <button onclick="deletarProduto(${p.id}, '${p.name}')"
+                            style="padding: 6px 10px; background:#ef4444; border:none; border-radius:4px; color:white; cursor:pointer;"
+                            title="Desativar">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    ` : `
+                        <button onclick="reativarProduto(${p.id})"
+                            style="padding: 6px 10px; background:#10b981; border:none; border-radius:4px; color:white; cursor:pointer;"
+                            title="Reativar Produto">
+                            <i class="fas fa-undo"></i>
+                        </button>
+                    `}
+                </td>
+            `;
+
+            tbody.appendChild(tr);
+        });
+
+    } catch (error) {
+        console.error("❌ Erro:", error);
+        tbody.innerHTML = `<tr><td colspan="7" style="color:red; text-align:center">Erro ao conectar com o servidor.</td></tr>`;
+    }
 }
 
-// FUNÇÃO BRUTAL DE EXCLUSÃO
+
+// 2. DESATIVAR PRODUTO (SOFT DELETE)
 async function deletarProduto(id, nome) {
-    // Confirmação para evitar desastres
-    const confirmacao = confirm(`TEM CERTEZA? \nVocê está prestes a excluir o produto: "${nome.toUpperCase()}". \nEsta ação não pode ser desfeita.`);
+    const confirmacao = confirm(`Deseja desativar o produto: "${nome.toUpperCase()}"?\nEle não aparecerá mais no caixa.`);
 
     if (!confirmacao) return;
 
@@ -35,58 +85,47 @@ async function deletarProduto(id, nome) {
         });
 
         if (response.ok) {
-            alert("✅ Produto removido com sucesso!");
-            // Recarrega a lista automaticamente
-            fetchProducts(); 
+            alert("✅ Produto desativado com sucesso!");
+            carregarProdutos();
         } else {
-            const erro = await response.json();
-            alert("❌ Erro ao deletar: " + (erro.error || "Tente novamente"));
+            const resultado = await response.json();
+            alert("❌ Erro: " + (resultado.error || "Não foi possível excluir."));
         }
+
     } catch (err) {
         console.error("Erro na requisição:", err);
         alert("❌ Falha crítica ao conectar com o servidor.");
     }
 }
-    async function carregarProdutos() {
-        try {
-            const response = await fetch('http://localhost:3000/products', { cache: 'no-store' });
-            if (!response.ok) throw new Error('Erro ao carregar produtos');
-            const produtos = await response.json();
 
-            const tbody = document.getElementById('lista-produtos-tbody');
-            tbody.innerHTML = '';
 
-            if (produtos.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6">Nenhum produto cadastrado.</td></tr>';
-                return;
-            }
+// 3. REATIVAR PRODUTO
+async function reativarProduto(id) {
 
-            produtos.forEach(produto => {
-                const tr = document.createElement('tr');
+    if (!confirm("Deseja reativar este produto?")) return;
 
-                // O Prisma traz a categoria dentro de produto.category
-                const nomeCategoria = produto.category ? produto.category.name : 'Sem categoria';
-                
-                // Use 'cost' em vez de 'custo'
-                const precoVenda = produto.price != null ? `R$ ${produto.price.toFixed(2)}` : 'N/A';
-                const precoCusto = produto.cost != null ? `R$ ${produto.cost.toFixed(2)}` : 'N/A';
+    try {
+        const response = await fetch(`/products/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ active: true })
+        });
 
-                tr.innerHTML = `
-                    <td>${produto.name}</td>
-                    <td>${precoVenda}</td>
-                    <td>${precoCusto}</td>
-                    <td>${produto.quantity}</td>
-                    <td>${produto.fornecedor || 'Não informado'}</td>
-                    <td><span class="badge">${nomeCategoria}</span></td>
-                `;
-                tbody.appendChild(tr);
-            });
-
-        } catch (error) {
-            console.error(error);
-            document.getElementById('lista-produtos-tbody').innerHTML = `<tr><td colspan="6">Não foi possível carregar os produtos.</td></tr>`;
+        if (response.ok) {
+            alert("✅ Produto reativado!");
+            carregarProdutos();
+        } else {
+            const erro = await response.json();
+            alert("Erro ao reativar: " + erro.error);
         }
-    }
 
-    carregarProdutos();
-});
+    } catch (err) {
+        alert("🚫 Falha na comunicação com o servidor.");
+    }
+}
+
+
+// 4. EDITAR PRODUTO
+function prepararEdicao(id) {
+    window.location.href = `cadastrar_produtos.html?edit=${id}`;
+}

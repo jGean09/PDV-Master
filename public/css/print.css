@@ -1,0 +1,40 @@
+/* Estilo específico para o Cupom de Venda */
+.ticket {
+    width: 80mm;
+    max-width: 100%;
+    padding: 5mm;
+    margin: 0 auto;
+    font-family: 'Courier New', Courier, monospace; /* Fonte estilo térmica */
+    font-size: 12px;
+    color: #000;
+}
+
+.ticket header {
+    text-align: center;
+    border-bottom: 1px dashed #000;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+.ticket table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.ticket .item-row {
+    border-bottom: 1px dotted #ccc;
+}
+
+.ticket .total-section {
+    border-top: 1px dashed #000;
+    margin-top: 10px;
+    padding-top: 5px;
+    font-weight: bold;
+    text-align: right;
+}
+
+@media print {
+    body * { visibility: hidden; } /* Esconde tudo do sistema */
+    .ticket, .ticket * { visibility: visible; } /* Mostra só o cupom */
+    .ticket { position: absolute; left: 0; top: 0; }
+}

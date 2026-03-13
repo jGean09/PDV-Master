@@ -14,14 +14,16 @@ model Category {
 }
 
 model Product {
-  id         Int        @id @default(autoincrement())
-  name       String
-  price      Float
-  cost       Float
-  quantity   Int
-  categoryId Int
-  category   Category   @relation(fields: [categoryId], references: [id])
-  saleItems  SaleItem[] // ADICIONADO: O Prisma exige isso para a relação com SaleItem
+  id          Int         @id @default(autoincrement())
+  name        String
+  price       Float
+  cost        Float
+  quantity    Int
+  active      Boolean     @default(true) // <-- ADICIONE ESTA LINHA
+  categoryId  Int
+  category    Category    @relation(fields: [categoryId], references: [id])
+  sales       SaleItem[]
+  createdAt   DateTime    @default(now())
 }
 
 model Client {

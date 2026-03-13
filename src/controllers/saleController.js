@@ -5,8 +5,8 @@ exports.createSale = async (req, res) => {
     const { customer, items, total } = req.body;
 
     try {
-        // Transação do Prisma: Garante que ou grava tudo ou não grava nada
         const result = await prisma.$transaction(async (tx) => {
+            // Cria a venda
             const sale = await tx.sale.create({
                 data: {
                     customerId: customer ? parseInt(customer.id) : null,
@@ -17,6 +17,15 @@ exports.createSale = async (req, res) => {
                             price: parseFloat(item.price),
                             quantity: parseInt(item.quantity)
                         }))
+                    }
+                },
+                // INCLUSÃO CRÍTICA: Retorna os nomes para o cupom
+                include: {
+                    client: true,
+                    items: {
+                        include: {
+                            product: true
+                        }
                     }
                 }
             });
@@ -32,10 +41,11 @@ exports.createSale = async (req, res) => {
             return sale;
         });
 
-        res.status(201).json({ ok: true, saleId: result.id });
+        // Retornamos o objeto 'result' completo (com includes)
+        res.status(201).json(result);
     } catch (err) {
         console.error(err);
-        res.status(400).json({ ok: false, error: err.message });
+        res.status(400).json({ error: err.message });
     }
 };
 
